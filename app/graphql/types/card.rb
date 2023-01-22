@@ -11,7 +11,7 @@ module Types
       object.supertype
     end
 
-    field :type, PokemonType, null: false, description: "Return the type of the card."
+    field :type, PokemonType, null: true, description: "Return the type of the card."
     def type
       object.kind
     end

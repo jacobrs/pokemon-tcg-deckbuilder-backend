@@ -12,8 +12,8 @@ module Types
     end
 
     field :cards, [Types::Card], null: false, description: "Return a list of cards in the deck."
-    def items
-      object.cards.all
-    end 
+    def cards
+      object.cards
+    end
   end
 end

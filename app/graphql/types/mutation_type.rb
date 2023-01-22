@@ -1,10 +1,5 @@
 module Types
   class MutationType < Types::BaseObject
-    # TODO: remove me
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World"
-    end
+    field :generate_deck, mutation: Mutations::GenerateDeckMutation, description: "Generates a deck of 60 cards."
   end
 end
