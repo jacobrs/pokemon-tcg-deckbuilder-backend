@@ -18,7 +18,7 @@ module Services
 
       cards = generate_pokemon_cards(number_of_pokemon_types) + generate_energy_cards + generate_trainer_cards(number_of_trainer_cards)
 
-      deck = Deck.create(
+      deck = Deck.new(
         name: @name,
         kind: @type
       )
@@ -36,7 +36,7 @@ module Services
 
     def generate_energy_cards
       energy_of_type_card_pool = Pokemon::Card.where(q: "name:#{@type} supertype:Energy", page: 1, pageSize: 100)
-      take_cards_from_pool(energy_of_type_card_pool, NUMBER_OF_ENERGY_CARDS)
+      take_cards_from_pool(energy_of_type_card_pool, NUMBER_OF_ENERGY_CARDS, max_duplicate_check: false)
     end
 
     def generate_trainer_cards(amount_to_generate)
@@ -44,13 +44,13 @@ module Services
       take_cards_from_pool(trainer_of_type_card_pool, amount_to_generate)
     end
 
-    def take_cards_from_pool(card_pool, number_of_cards_to_take)
+    def take_cards_from_pool(card_pool, number_of_cards_to_take, max_duplicate_check: true)
       cards = []
       size_of_card_pool = card_pool.size
       while cards.size < number_of_cards_to_take
         random_card = card_pool[rand(0..size_of_card_pool-1)]
 
-        next unless less_than_allowed_duplicates(cards, random_card)
+        next unless !max_duplicate_check || less_than_allowed_duplicates(cards, random_card)
 
         cards.push(Card.new(
           name: random_card.name,

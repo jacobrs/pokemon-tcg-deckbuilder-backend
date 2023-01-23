@@ -10,10 +10,16 @@ module Types
     end
 
     def decks(type: nil, id: nil, lookahead: nil)
+      eager_load_cards = lookahead.selection(:nodes).selects?(:cards) ||
+        lookahead.selection(:edges).selection(:node).selects?(:cards)
+
       return ::Deck.where(id: id) unless id.nil?
+      
+      return ::Deck.all.eager_load(:cards) if type.nil? && eager_load_cards
       return ::Deck.all.eager_load(:cards) if type.nil?
 
-      ::Deck.where(kind: type).eager_load(:cards)
+      return ::Deck.where(kind: type).eager_load(:cards) if eager_load
+      ::Deck.where(kind: type)
     end
   end
 end
