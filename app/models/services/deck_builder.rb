@@ -57,7 +57,7 @@ module Services
           name: random_card.name,
           supertype: random_card.supertype,
           kind: random_card.supertype == "Trainer" ? nil : @type,
-          image_url: random_card.images.small,
+          image_url: random_card.images&.small,
           tcg_api_id: random_card.id,
           average_price: random_card.cardmarket&.prices&.average_sell_price,
           rarity: random_card.rarity,

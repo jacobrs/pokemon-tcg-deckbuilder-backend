@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a GraphQL Ruby on Rails backend for a Pokemon TCG deck builder. The coresponding frontend can be found [here](https://github.com/jacobrs/pokemon-tcg-deckbuilder-frontend).
 
-Things you may want to cover:
+## Pre-requisites
+* Ruby and rails
+* PostgreSQL (running locally on default port)
 
-* Ruby version
+## Getting Started
 
-* System dependencies
+1. Clone the repository
+2. Run `bundle install`
+3. Run `rails db:create db:migrate db:seed` to create the database and run pending migrations
+4. Run `bin/rails server` to start the server on port `3001`
+5. GraphiQL should be running on `http://localhost:3001/graphiql` to test out queries and view schema
 
-* Configuration
+## Running Tests
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`bin/rails test` can be used to run tests.

@@ -134,6 +134,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.17.0)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.6.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -242,6 +244,7 @@ DEPENDENCIES
   graphql (~> 2.0)
   importmap-rails
   jbuilder
+  mocha
   pg (~> 1.1)
   pokemon_tcg_sdk
   pry
