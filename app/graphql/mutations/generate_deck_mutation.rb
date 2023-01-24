@@ -8,7 +8,7 @@ module Mutations
 
     def resolve(input)
       attributes = input[:attributes]
-      builder = Services::DeckBuilder.new(attributes.type, attributes[:name])
+      builder = Services::DeckBuilder.new(attributes.type, attributes[:name], attributes[:pool_size])
       deck = builder.generate
       deck.save
 

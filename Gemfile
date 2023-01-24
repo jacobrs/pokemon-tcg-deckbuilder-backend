@@ -68,6 +68,7 @@ group :development do
   # gem "spring"
 end
 
+gem 'rack-cors', '~> 0.3.1'
 
 gem "graphql", "~> 2.0"
 gem "graphiql-rails", group: :development

@@ -15,11 +15,11 @@ module Types
 
       return ::Deck.where(id: id) unless id.nil?
       
-      return ::Deck.all.eager_load(:cards) if type.nil? && eager_load_cards
-      return ::Deck.all.eager_load(:cards) if type.nil?
+      return ::Deck.all.order(id: :desc).eager_load(:cards) if type.nil? && eager_load_cards
+      return ::Deck.all.order(id: :desc).eager_load(:cards) if type.nil?
 
-      return ::Deck.where(kind: type).eager_load(:cards) if eager_load
-      ::Deck.where(kind: type)
+      return ::Deck.where(kind: type).order(id: :desc).eager_load(:cards) if eager_load_cards
+      ::Deck.order(id: :desc).where(kind: type)
     end
   end
 end

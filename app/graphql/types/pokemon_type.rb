@@ -10,7 +10,7 @@ module Types
     value "FIGHTING",  value: "Fighting"
     value "FIRE",  value: "Fire"
     value "GRASS",  value: "Grass"
-    value "LIGHTING",  value: "Lightning"
+    value "LIGHTNING",  value: "Lightning"
     value "METAL",  value: "Metal"
     value "PSYCHIC",  value: "Psychic"
     value "WATER",  value: "Water"

@@ -5,11 +5,12 @@ module Services
     NUMBER_OF_ENERGY_CARDS = 10
     NUMBER_OF_ALLOWED_DUPLICATED = 4
 
-    def initialize(type, name)
+    def initialize(type, name, pool_size)
       throw "No type given for deck generation" if type.nil?
       throw "No name given for deck generation" if name.nil?
       @type = type
       @name = name
+      @pool_size = pool_size
     end
 
     def generate
@@ -30,7 +31,7 @@ module Services
     private
 
     def generate_pokemon_cards(amount_to_generate)
-      pokemon_of_type_card_pool = Pokemon::Card.where(q: "types:#{@type} supertype:Pokémon", page: 1, pageSize: 100)
+      pokemon_of_type_card_pool = pokemon_pool
       take_cards_from_pool(pokemon_of_type_card_pool, amount_to_generate)
     end
 
@@ -40,7 +41,7 @@ module Services
     end
 
     def generate_trainer_cards(amount_to_generate)
-      trainer_of_type_card_pool = Pokemon::Card.where(q: "supertype:Trainer", page: 1, pageSize: 100)
+      trainer_of_type_card_pool = trainer_pool
       take_cards_from_pool(trainer_of_type_card_pool, amount_to_generate)
     end
 
@@ -57,7 +58,10 @@ module Services
           supertype: random_card.supertype,
           kind: random_card.supertype == "Trainer" ? nil : @type,
           image_url: random_card.images.small,
-          tcg_api_id: random_card.id
+          tcg_api_id: random_card.id,
+          average_price: random_card.cardmarket&.prices&.average_sell_price,
+          rarity: random_card.rarity,
+          evolves_from: random_card.evolves_from,
         ))
       end
 
@@ -68,6 +72,16 @@ module Services
       cards.count do |c|
         c.tcg_api_id == card.id
       end < NUMBER_OF_ALLOWED_DUPLICATED
+    end
+
+    def pokemon_pool
+      return Pokemon::Card.where(q: "types:#{@type} supertype:Pokémon") if @pool_size.nil?
+      Pokemon::Card.where(q: "types:#{@type} supertype:Pokémon", page: 1, pageSize: @pool_size)
+    end
+
+    def trainer_pool
+      return Pokemon::Card.where(q: "supertype:Trainer") if @pool_size.nil?
+      Pokemon::Card.where(q: "supertype:Trainer", page: 1, pageSize: @pool_size)
     end
   end
 end
