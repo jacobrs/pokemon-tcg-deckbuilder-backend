@@ -17,3 +17,7 @@ This is a GraphQL Ruby on Rails backend for a Pokemon TCG deck builder. The core
 ## Running Tests
 
 `bin/rails test` can be used to run tests.
+
+## Screenshots
+
+<img src="https://github.com/jacobrs/pokemon-tcg-deckbuilder-backend/blob/main/docs/graphiql_screenshot.png"/>
